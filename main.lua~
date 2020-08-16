@@ -1,0 +1,30 @@
+function love.load()
+    t = 0
+end
+
+function love.update( dt )
+    t = t + dt
+end
+
+function harmonic( x1, y1, n )
+    local n = n or 1
+    local m = 2 * n - 1
+    local r = 100 / m
+    local x2 = x1 + ( r * math.cos( -m * t ))
+    local y2 = y1 + ( r * math.sin( -m * t ))
+    local order = 20
+    -- math.floor( t % 10 )
+    love.graphics.print( string.format( '%f %d', t, order ), 20, 20 )
+    -- love.graphics.circle( 'line', x1, y1, r )
+    love.graphics.line( x1, y1, x2, y2 )
+    if n <  order then
+        harmonic( x2, y2, n+1 )
+    else
+        love.graphics.line( x2, y2, 400, y2 )
+    end
+end
+
+function love.draw()
+    harmonic( 200, 300 )    
+end
+
